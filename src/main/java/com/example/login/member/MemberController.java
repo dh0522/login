@@ -3,6 +3,7 @@ package com.example.login.member;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.login.member.dto.MemberJoinDto;
@@ -11,14 +12,31 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@RestController("/api/v1/members")
+@RestController
+@RequestMapping("/api/v1/members")
 public class MemberController {
 
 	private final MemberService memberService;
 
 	@PostMapping("/join")
-	public ResponseEntity<Long> join(@RequestBody @Valid MemberJoinDto joinDto){
-		Long memberId = memberService.join(joinDto);
-		return ResponseEntity.ok(memberId);
+	public ResponseEntity<String> join(@RequestBody @Valid MemberJoinDto joinDto){
+
+		memberService.join(joinDto);
+
+		return ResponseEntity.ok("회원가입 완료");
 	}
+
+	@PostMapping("/login")
+	public ResponseEntity<?> login(){
+
+		return null;
+	}
+
+
+	@PostMapping("/logout")
+	public ResponseEntity<?> logout(){
+
+		return null;
+	}
+
 }
