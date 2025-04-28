@@ -1,5 +1,9 @@
 package com.example.login.member;
 
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class MemberService {
+public class MemberService{
 
 	private final MemberRepository memberRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -41,5 +45,10 @@ public class MemberService {
 
 		memberRepository.save(member);
 	}
+
+
+	// 로그인할 때 사용하는 클래스 -> 시큐리티가 로그인할 때 사용자 정보를 찾아오려고 부르는 서비스(UserDetailsService 구현체)
+	// 즉, 로그인할 때 DB에서 사용자 꺼내서 인증 정보를 만들어주는 역할을 한다.
+	// 시큐리티 문법만 사용할 경우, 로그인을 따로 구현할 필요가 없다.
 
 }

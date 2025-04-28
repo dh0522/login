@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/members")
 public class MemberController {
 
 	private final MemberService memberService;
@@ -24,19 +23,6 @@ public class MemberController {
 		memberService.join(joinDto);
 
 		return ResponseEntity.ok("회원가입 완료");
-	}
-
-	@PostMapping("/login")
-	public ResponseEntity<?> login(){
-
-		return null;
-	}
-
-
-	@PostMapping("/logout")
-	public ResponseEntity<?> logout(){
-
-		return null;
 	}
 
 }
