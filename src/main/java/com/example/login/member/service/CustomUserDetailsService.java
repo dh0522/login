@@ -25,7 +25,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 			() -> new EntityNotFoundException("사용자를 찾을 수 없습니다.")
 		);
 
-
 		return User.builder()
 			.username(member.getEmail())
 			.password(member.getPassword())

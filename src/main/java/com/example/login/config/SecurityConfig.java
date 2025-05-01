@@ -22,9 +22,9 @@ public class SecurityConfig {
 
 		http.csrf(csrf -> csrf.disable())
 			.httpBasic(Customizer.withDefaults())
-			.formLogin(Customizer.withDefaults())
+			.logout(logout -> logout.disable())
 			.authorizeHttpRequests(auth-> auth
-				.requestMatchers("/join").permitAll()
+				.requestMatchers("/join", "/login", "/logout").permitAll()
 				.anyRequest().authenticated()
 			);
 
