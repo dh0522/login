@@ -177,7 +177,7 @@ public class JwtTokenProvider {
 	public boolean isValidRefreshToken(String token){
 		String username = getUserName(token);
 
-		redisTemplate.delete("refreshToken:"+username);
+		// redisTemplate.delete("refreshToken:"+username);
 
 		String storedRefresh = redisTemplate.opsForValue().get("refreshToken:" + username);
 

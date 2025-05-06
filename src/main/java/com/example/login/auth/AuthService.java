@@ -56,4 +56,43 @@ public class AuthService {
 		jwtTokenProvider.addBlackList(accessToken);
 		jwtTokenProvider.deleteRefreshToken(accessToken);
 	}
+
+
+	public JwtToken refresh(String token){
+		//  refresh 토큰의 정보를 통해서 AccessToken 을 재발급 받는다.
+
+		// 1. 토큰에서 refresh 토큰 추출
+		String refreshToken = jwtTokenProvider.resolveToken(token);
+
+		// 2. refresh 토큰이 만료되었는지 검증
+		if( refreshToken == null || ! jwtTokenProvider.validateToken(refreshToken) ){
+			throw new IllegalArgumentException("해당 토큰은 만료되었습니다.");
+		}
+
+		// 3. 추출한 refresh 토큰에서 정보 추출
+		String email = jwtTokenProvider.getUserName(refreshToken);
+
+		Member member = memberRepository.findByEmail(email).orElseThrow(
+			() -> new EntityNotFoundException("해당 회원을 찾을 수 없습니다.")
+		);
+
+		// 4. refresh 토큰이 유효한지 검증
+		if(!jwtTokenProvider.isValidRefreshToken(refreshToken)){
+			throw new IllegalArgumentException("해당 토큰은 유효하지 않습니다.");
+		}
+
+		return new JwtToken(
+			jwtTokenProvider.createAccessToken(email, member.getRole()),
+			refreshToken
+		);
+	}
+
+
+
+
+
+
+
+
+
 }

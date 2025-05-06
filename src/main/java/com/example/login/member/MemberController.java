@@ -49,5 +49,12 @@ public class MemberController {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PostMapping("/refresh")
+	public ResponseEntity<JwtToken> refreshToken(@RequestHeader("Authorization") String token){
+		JwtToken refreshToken = authService.refresh(token);
+
+		return ResponseEntity.ok(refreshToken);
+	}
+
 
 }
