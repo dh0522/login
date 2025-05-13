@@ -25,7 +25,7 @@ public class SecurityConfig {
 			.logout(logout -> logout.disable())
 			.authorizeHttpRequests(auth-> auth
 				.requestMatchers("/join", "/login", "/logout", "/refresh").permitAll()
-				.anyRequest().authenticated()
+				.anyRequest().permitAll()
 			);
 
 		return http.build();

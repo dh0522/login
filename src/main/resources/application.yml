@@ -11,6 +11,26 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+# 네이버 메일 인증 관련
+  mail:
+    host: smtp.naver.com
+    port: 465
+    username: gong4857@naver.com
+    password: wnsaus0408!
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.ssl.trust: smtp.naver.com
+
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: jjjjay82
+#    password: kcsx nljv iuwm jbzz
+#    properties:
+#      mail.smtp.auth: true
+#      mail.smtp.starttls.enable: true
+
 
 logging:
   level:
@@ -21,3 +41,5 @@ logging:
 springboot:
   jwt:
     secret: h1o2n3gg5i6l7d8o9n0g;h1o2n3gg5i6l7d8o9n0g
+
+
