@@ -5,6 +5,7 @@ import java.text.ParseException;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,4 +39,18 @@ public class MailController {
 
 		return ResponseEntity.ok(result);
 	}
+
+	@GetMapping("/simple")
+	public ResponseEntity<?> sendSimpleMailMessage() {
+
+		try {
+			mailService.sendSimpleMailMessage();
+		}catch (Exception e ){
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+
+		return ResponseEntity.ok("메일 전송 완료!~ ");
+	}
+
+
 }

@@ -2,6 +2,7 @@ package com.example.login.mail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -9,9 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Transactional(readOnly = true)
+@Slf4j
 public class MailService {
 
 
@@ -46,4 +48,51 @@ public class MailService {
 
 		return test;
 	}
+
+		public void sendSimpleMailMessage() {
+
+			SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+
+			try {
+				// 메일 받는 수신자 설정
+				simpleMailMessage.setTo("gong4857@naver.com");
+
+				// 메일 제목 설정
+				simpleMailMessage.setSubject("홍도현님의 근무시간이 변동되었습니다. ");
+
+				// 송신자 메일 주소 변경
+				simpleMailMessage.setFrom(user);
+
+				// 메일 내용 설정
+				String message =  "안녕하세요, 홍도현님.\n\n" +
+					"2025년 5월 10일 근무 일정이 다음과 같이 교환되었습니다.\n\n" +
+					"📌 변경 내용:\n" +
+					"- 홍도현님: NIGHT → OFF\n" +
+					"- 김아무개님: OFF → NIGHT\n\n" +
+					"일정 관리 시스템에서 변경 사항을 확인해주세요.\n\n" +
+					"감사합니다.\n" +
+					"간호사 일정관리 시스템";
+				simpleMailMessage.setText(message);
+
+				javaMailSender.send(simpleMailMessage);
+
+				log.info("메일 전송 완료! ");
+			} catch (Exception e){
+				log.info("메일 발송 실패!");
+				throw new RuntimeException(e);
+			}
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
 }
